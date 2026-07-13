@@ -7,6 +7,10 @@
     <orderEntry type="jdk" jdkName="Python 3.12 (observe-metrics-cli)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="PLAIN" />
+    <option name="myDocStringFormat" value="Plain" />
+  </component>
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
