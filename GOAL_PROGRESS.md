@@ -1,6 +1,6 @@
 # AI Agent 转型目标进度表
 
-> 最后更新：2026-07-13
+> 最后更新：2026-07-15
 >
 > 北极星目标：在 2026-12-31 前拿到 AI Agent / AI 应用开发 / LLM 应用工程方向的满意 Offer。
 >
@@ -15,19 +15,19 @@
 
 ## 当前判断
 
-截至 2026-07-13，已经完成：
+截至 2026-07-15，已经完成：
 
 - LLM API 调用、Streaming 和 Structured Output 基础练习；
 - 使用 FastMCP 暴露 MCP Tool；
 - 使用 Zoekt 实现 `search_code`；
 - 实现 `get_file_context`、仓库内路径限制和目录穿越防护；
-- 15 个单元测试通过；
+- 22 个单元测试通过，已覆盖仓库穿越、绝对文件路径、目录路径和 Tool 异常转换；
+- `pytest` 已纳入可复现的开发依赖，README 中的测试命令已在全新虚拟环境验证通过；
 - README 已包含工具参数、调用链、设计取舍和常见问题。
 
 当前尚未闭环：
 
-- `pytest` 尚未纳入可复现的开发依赖，README 中的 pytest 命令在当前虚拟环境不能直接运行；
-- 尚无真实 Zoekt 集成测试，也没有保存一次 `search_code -> get_file_context` 的端到端证据；
+- 尚无可重复运行的真实 Zoekt 集成测试；已有一次脱敏的 `search_code -> get_file_context` 功能证据，但缺少客户端类型、Server commit 和索引 commit 等完整元数据，也不能替代公开演示；
 - 尚无固定评测集，检索命中率、延迟和上下文有效性没有基线；
 - 尚未实现由 LLM 自主选择 MCP Tool 的 Code Understanding Agent；
 - 尚未把错误日志与代码检索组合成 Incident Copilot。
@@ -58,8 +58,8 @@
 | 日期 | 任务 | 完成证据 | 状态 |
 | --- | --- | --- | --- |
 | 07-13 周一 | 完成 FastMCP 迁移、Tool 指令和 README 使用说明 | Git 提交 `d213fd8`、`5a491f7` | ✅ |
-| 07-14 周二 | 补开发依赖，使 README 中的测试命令在全新虚拟环境可执行 | `python -m pytest -q` 可直接通过 | ⬜ |
-| 07-15 周三 | 补 Tool 层和安全边界测试：绝对路径、仓库穿越、目录、异常转换 | 新测试全部通过，失败信息对 MCP Client 可读 | ⬜ |
+| 07-14 周二 | 补开发依赖，使 README 中的测试命令在全新虚拟环境可执行 | 全新虚拟环境中 `python -m pytest -q` 通过，15 个测试通过 | ✅ |
+| 07-15 周三 | 补 Tool 层和安全边界测试：绝对路径、仓库穿越、目录、异常转换 | 新增 7 个测试；`python -m pytest -q`：22 passed in 0.30s；`ToolError` 保留原始原因 | ✅ |
 | 07-16 周四 | 建立真实 Zoekt 集成测试，验证 repo/path/line 与本地源码一致 | 一条可重复运行的 integration 命令 | ⬜ |
 | 07-17 周五 | 缓冲与轻量复盘，只修复本周闭环中的问题 | 测试全绿；记录一个 decision log | ⬜ |
 | 07-18 周六 | 用 MCP Inspector 或真实 MCP Client 跑通搜索后读取上下文 | 保存请求、Tool 调用和结果截图/录屏 | ⬜ |
@@ -69,8 +69,8 @@
 
 - [x] `search_code` 可用
 - [x] `get_file_context` 可用
-- [x] 基础单元测试通过
-- [ ] 测试依赖可复现安装
+- [x] 基础及安全边界单元测试通过（22 个）
+- [x] 测试依赖可复现安装
 - [ ] 真实 Zoekt 集成测试通过
 - [ ] MCP Client 端到端闭环通过
 - [ ] 中文、特殊字符和 Zoekt 行号语义已验证
