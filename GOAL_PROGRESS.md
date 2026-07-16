@@ -1,6 +1,6 @@
 # AI Agent 转型目标进度表
 
-> 最后更新：2026-07-15
+> 最后更新：2026-07-17
 >
 > 北极星目标：在 2026-12-31 前拿到 AI Agent / AI 应用开发 / LLM 应用工程方向的满意 Offer。
 >
@@ -15,7 +15,7 @@
 
 ## 当前判断
 
-截至 2026-07-15，已经完成：
+截至 2026-07-16，已经完成：
 
 - LLM API 调用、Streaming 和 Structured Output 基础练习；
 - 使用 FastMCP 暴露 MCP Tool；
@@ -24,10 +24,13 @@
 - 22 个单元测试通过，已覆盖仓库穿越、绝对文件路径、目录路径和 Tool 异常转换；
 - `pytest` 已纳入可复现的开发依赖，README 中的测试命令已在全新虚拟环境验证通过；
 - README 已包含工具参数、调用链、设计取舍和常见问题。
+- 真实 Zoekt 集成测试已通过：`search_code` 返回的 `repo/path/line` 与本地源码一致，随后由 `get_file_context` 读到目标源码片段；
+- 已验证中文/Unicode 查询和 Zoekt 行号语义；索引仓库 commit 与本地 checkout commit 一致。
 
 当前尚未闭环：
 
-- 尚无可重复运行的真实 Zoekt 集成测试；已有一次脱敏的 `search_code -> get_file_context` 功能证据，但缺少客户端类型、Server commit 和索引 commit 等完整元数据，也不能替代公开演示；
+- MCP Client 端到端调用和不包含公司敏感信息的公开演示仍未完成；本次集成证据使用内部测试仓库，不能直接作为公开材料；
+- Zoekt Server commit 未通过 `/about` 暴露，客户端与服务端的完整版本元数据仍需补齐或明确记录不可获取；特殊字符查询尚未单独验证；
 - 尚无固定评测集，检索命中率、延迟和上下文有效性没有基线；
 - 尚未实现由 LLM 自主选择 MCP Tool 的 Code Understanding Agent；
 - 尚未把错误日志与代码检索组合成 Incident Copilot。
@@ -36,12 +39,12 @@
 
 ## 总目标进度
 
-当前求职全链路加权进度约为 **18%**。这个数字不是“技术学习进度”，而是从基础、作品、工程化到投递和 Offer 的整体进度。
+当前求职全链路加权进度约为 **20%**。这个数字不是“技术学习进度”，而是从基础、作品、工程化到投递和 Offer 的整体进度。
 
 | ID | 里程碑 | 权重 | 当前完成度 | 状态 | 目标日期 | 退出标准 |
 | --- | --- | ---: | ---: | --- | --- | --- |
 | M0 | LLM 与结构化输出基础 | 5% | 100% | ✅ 完成 | 07-08 | API、Streaming、Structured Output 均有可运行代码 |
-| M1 | Code Search MCP v0.1 | 15% | 75% | 🟡 进行中 | 07-19 | 两个 Tool 可复现安装；单测通过；真实 Zoekt 闭环通过；有演示证据 |
+| M1 | Code Search MCP v0.1 | 15% | 85% | 🟡 进行中 | 07-19 | 两个 Tool 可复现安装；单测通过；真实 Zoekt 闭环通过；有演示证据 |
 | M2 | 检索评测与质量改进 | 10% | 0% | ⬜ 未开始 | 07-26 | 固定评测集、基线报告、回归命令和至少一项数据驱动改进 |
 | M3 | Code Understanding Agent | 15% | 0% | ⬜ 未开始 | 08-16 | LLM 自主调用 MCP；回答引用真实文件和行号；有限次 Tool Loop |
 | M4 | Incident Copilot | 20% | 0% | ⬜ 未开始 | 09-06 | 日志/栈信息提取、代码定位、证据化分析、5 个可复现案例 |
@@ -60,7 +63,7 @@
 | 07-13 周一 | 完成 FastMCP 迁移、Tool 指令和 README 使用说明 | Git 提交 `d213fd8`、`5a491f7` | ✅ |
 | 07-14 周二 | 补开发依赖，使 README 中的测试命令在全新虚拟环境可执行 | 全新虚拟环境中 `python -m pytest -q` 通过，15 个测试通过 | ✅ |
 | 07-15 周三 | 补 Tool 层和安全边界测试：绝对路径、仓库穿越、目录、异常转换 | 新增 7 个测试；`python -m pytest -q`：22 passed in 0.30s；`ToolError` 保留原始原因 | ✅ |
-| 07-16 周四 | 建立真实 Zoekt 集成测试，验证 repo/path/line 与本地源码一致 | 一条可重复运行的 integration 命令 | ⬜ |
+| 07-16 周四 | 建立真实 Zoekt 集成测试，验证 repo/path/line 与本地源码一致 | `docs/evidence/2026-07-16-zoekt-integration.json`；测试通过，`get_file_context` 与本地源码片段一致 | ✅ |
 | 07-17 周五 | 缓冲与轻量复盘，只修复本周闭环中的问题 | 测试全绿；记录一个 decision log | ⬜ |
 | 07-18 周六 | 用 MCP Inspector 或真实 MCP Client 跑通搜索后读取上下文 | 保存请求、Tool 调用和结果截图/录屏 | ⬜ |
 | 07-19 周日 | 更新 README 的验证结果、限制与演示，完成周复盘 | v0.1 checklist 全部勾选；可选打 `v0.1.0` tag | ⬜ |
@@ -71,9 +74,9 @@
 - [x] `get_file_context` 可用
 - [x] 基础及安全边界单元测试通过（22 个）
 - [x] 测试依赖可复现安装
-- [ ] 真实 Zoekt 集成测试通过
+- [x] 真实 Zoekt 集成测试通过（`repo/path/line` 与本地源码一致）
 - [ ] MCP Client 端到端闭环通过
-- [ ] 中文、特殊字符和 Zoekt 行号语义已验证
+- [x] 中文/Unicode 查询和 Zoekt 行号语义已验证；特殊字符仍待补测
 - [ ] 有不包含公司敏感代码的公开演示材料
 
 ## 下一阶段计划

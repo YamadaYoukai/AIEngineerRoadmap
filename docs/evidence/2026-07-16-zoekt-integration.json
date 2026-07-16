@@ -1,0 +1,108 @@
+{
+  "execution": {
+    "duration_ms": 124.324,
+    "result": "passed"
+  },
+  "finished_at": "2026-07-16T16:57:19.952Z",
+  "get_file_context": {
+    "contains_target_fragment": true,
+    "end_line": 51,
+    "start_line": 49,
+    "target_line": 50
+  },
+  "report_path": "/Users/didi/code-mcp-demo/mcp-server/.artifacts/zoekt-integration.json",
+  "repository": {
+    "indexed_repository": {
+      "branches": [
+        {
+          "commit": "1f7993b9b2d38541e4a61c561a9e2e8ca4fe7fc8",
+          "name": "HEAD"
+        }
+      ],
+      "commit": "1f7993b9b2d38541e4a61c561a9e2e8ca4fe7fc8",
+      "index_time": "2026-06-04T08:33:53.079979336Z",
+      "name": "fulfillment"
+    },
+    "indexed_repository_commit": "1f7993b9b2d38541e4a61c561a9e2e8ca4fe7fc8",
+    "local_checkout_commit": "1f7993b9b2d38541e4a61c561a9e2e8ca4fe7fc8",
+    "name": "fulfillment",
+    "target_file": "wallet-fulfillment-handler/src/main/java/com/xiaoju/wallet/fulfillment/handler/FulfillmentBaseBizHandler.java",
+    "target_fragment": "fulfillmentBaseService.fulfillProcessDecision(fulfillmentBaseContext.getFulfillmentBaseDO());"
+  },
+  "search_code": {
+    "line": 50,
+    "literal": true,
+    "local_source_line": "        fulfillmentBaseService.fulfillProcessDecision(fulfillmentBaseContext.getFulfillmentBaseDO());",
+    "path": "wallet-fulfillment-handler/src/main/java/com/xiaoju/wallet/fulfillment/handler/FulfillmentBaseBizHandler.java",
+    "query": "fulfillProcessDecision",
+    "repo": "fulfillment",
+    "returned_matches": [
+      {
+        "line": 42,
+        "path": "wallet-fulfillment-service/src/main/java/com/xiaoju/wallet/fulfillment/service/fulfill/FulfillmentBaseService.java",
+        "repo": "fulfillment",
+        "snippet": "void fulfillProcessDecision(FulfillmentBaseDO fulfillmentBaseDO);"
+      },
+      {
+        "line": 156,
+        "path": "wallet-fulfillment-service/src/main/java/com/xiaoju/wallet/fulfillment/service/fulfill/impl/FulfillmentBaseServiceImpl.java",
+        "repo": "fulfillment",
+        "snippet": "public void fulfillProcessDecision(FulfillmentBaseDO fulfillmentBaseDO) {"
+      },
+      {
+        "line": 131,
+        "path": "wallet-fulfillment-service/src/main/java/com/xiaoju/wallet/fulfillment/service/fulfill/impl/FulfillmentBaseServiceImpl.java",
+        "repo": "fulfillment",
+        "snippet": "fulfillProcessDecision(fulfillmentBaseDO);"
+      },
+      {
+        "line": 50,
+        "path": "wallet-fulfillment-handler/src/main/java/com/xiaoju/wallet/fulfillment/handler/FulfillmentBaseBizHandler.java",
+        "repo": "fulfillment",
+        "snippet": "fulfillmentBaseService.fulfillProcessDecision(fulfillmentBaseContext.getFulfillmentBaseDO());"
+      },
+      {
+        "line": 39,
+        "path": "wallet-fulfillment-handler/src/main/java/com/xiaoju/wallet/fulfillment/handler/exception/processor/FulfillmentBaseStatusInitExceptionProcessor.java",
+        "repo": "fulfillment",
+        "snippet": "fulfillmentBaseService.fulfillProcessDecision(fulfillmentBaseDO);"
+      },
+      {
+        "line": 255,
+        "path": "wallet-fulfillment-api/src/test/java/com/xiaoju/wallet/fulfillment/service/fulfill/impl/FulfillmentBaseServiceImplTest.java",
+        "repo": "fulfillment",
+        "snippet": "fulfillmentBaseServiceImplUnderTest.fulfillProcessDecision(fulfillmentBaseDO);"
+      },
+      {
+        "line": 58,
+        "path": "wallet-fulfillment-api/src/test/java/com/xiaoju/wallet/fulfillment/handler/exception/processor/FulfillmentBaseStatusInitExceptionProcessorTest.java",
+        "repo": "fulfillment",
+        "snippet": "doNothing().when(mockFulfillmentBaseService).fulfillProcessDecision(fulfillmentBaseDO);"
+      }
+    ],
+    "snippet": "fulfillmentBaseService.fulfillProcessDecision(fulfillmentBaseContext.getFulfillmentBaseDO());"
+  },
+  "started_at": "2026-07-16T16:57:19.827Z",
+  "test": "test_search_code_to_file_context_matches_local_source",
+  "unicode_query": {
+    "line": 49,
+    "literal": true,
+    "local_source_line": "        // 6. 履约处理决策",
+    "path": "wallet-fulfillment-handler/src/main/java/com/xiaoju/wallet/fulfillment/handler/FulfillmentBaseBizHandler.java",
+    "query": "履约处理决策",
+    "repo": "fulfillment"
+  },
+  "zoekt": {
+    "client": {
+      "httpx_version": "0.28.1",
+      "implementation": "src.services.zoekt_client.ZoektClient",
+      "python": "3.12.13",
+      "python_executable": "/Users/didi/PycharmProjects/pythonProject/observe-metrics-cli/venv/bin/python",
+      "python_implementation": "CPython",
+      "timeout_seconds": 10.0
+    },
+    "server_commit": null,
+    "server_commit_source": "not exposed by /about",
+    "url": "http://localhost:6070"
+  }
+}
