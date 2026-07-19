@@ -1,6 +1,6 @@
 # AI Agent 转型目标进度表
 
-> 最后更新：2026-07-19
+> 最后更新：2026-07-20
 >
 > 北极星目标：在 2026-12-31 前拿到 AI Agent / AI 应用开发 / LLM 应用工程方向的满意 Offer。
 >
@@ -15,7 +15,7 @@
 
 ## 当前判断
 
-截至 2026-07-19，已经完成：
+截至 2026-07-20，已经完成：
 
 - LLM API 调用、Streaming 和 Structured Output 基础练习；
 - 使用 FastMCP 暴露 MCP Tool；
@@ -29,25 +29,29 @@
 - 已使用公开仓库 `pallets/click` `8.4.1` 完成真实 MCP Client 闭环，`search_code` 精确命中 `src/click/core.py:848`，随后由 `get_file_context` 读取第 836～860 行；
 - 已保存首次失败和修复后重跑的 Client 可观察证据，包含请求参数、两次 Tool 返回结果和调用轨迹；公开演示材料不依赖公司代码；
 - 已发现并修复 Zoekt 根据 Git `origin` 返回 `github.com/pallets/click`、与本地目录 `click` 不一致的问题，索引前通过 `git config zoekt.name click` 固定仓库名。
+- README 已链接公开 Click 演示证据，补充 `zoekt.name`、限制和失败案例；公开单测与示例已改为通用名称；
+- 内部仓库集成测试、旧证据和本地配置已保留在 Git 忽略的本地目录；公开工作树复扫未命中公司仓库、域名、本机绝对路径或常见密钥格式。
 
-当前尚未闭环：
+M1 的功能和当前公开工作树已达到退出标准，可以进入 M2；不增加新的 Tool。
 
-- README 尚未加入公开 Click 演示入口、`zoekt.name` 配置说明和本次失败案例；v0.1 发布 checklist 仍需最终确认；
+当前仍需注意：
+
+- 上游提交历史仍含已移动到本地归档的旧敏感材料。未进行历史改写或远端强推前，不打 tag、不宣称远端仓库已完成历史脱敏；
 - Zoekt Server commit 未通过 `/about` 暴露，现有证据已明确记录为不可获取；后续如能从构建来源确认，应通过显式元数据补齐；
 - 尚无固定评测集，检索命中率、延迟和上下文有效性没有基线；
 - 尚未实现由 LLM 自主选择 MCP Tool 的 Code Understanding Agent；
 - 尚未把错误日志与代码检索组合成 Incident Copilot。
 
-因此，M1 已进入发布收口阶段。先完成 README 和 v0.1 checklist，再进入 M2 建立固定评测集；不增加新的 Tool。
+因此，M1 标记为完成；下一步按计划进入 M2 建立固定评测集。远端历史清理作为发布前安全门槛单独处理。
 
 ## 总目标进度
 
-当前求职全链路加权进度约为 **21%**。这个数字不是“技术学习进度”，而是从基础、作品、工程化到投递和 Offer 的整体进度。
+当前求职全链路加权进度约为 **22%**。这个数字不是“技术学习进度”，而是从基础、作品、工程化到投递和 Offer 的整体进度。
 
 | ID | 里程碑 | 权重 | 当前完成度 | 状态 | 目标日期 | 退出标准 |
 | --- | --- | ---: | ---: | --- | --- | --- |
 | M0 | LLM 与结构化输出基础 | 5% | 100% | ✅ 完成 | 07-08 | API、Streaming、Structured Output 均有可运行代码 |
-| M1 | Code Search MCP v0.1 | 15% | 95% | 🟡 收口中 | 07-19 | 两个 Tool 可复现安装；单测通过；真实 Zoekt 闭环通过；有演示证据 |
+| M1 | Code Search MCP v0.1 | 15% | 100% | ✅ 完成（当前工作树） | 07-20（实际） | 两个 Tool 可复现安装；单测通过；真实 Zoekt 闭环通过；有公开演示与脱敏检查 |
 | M2 | 检索评测与质量改进 | 10% | 0% | ⬜ 未开始 | 07-26 | 固定评测集、基线报告、回归命令和至少一项数据驱动改进 |
 | M3 | Code Understanding Agent | 15% | 0% | ⬜ 未开始 | 08-16 | LLM 自主调用 MCP；回答引用真实文件和行号；有限次 Tool Loop |
 | M4 | Incident Copilot | 20% | 0% | ⬜ 未开始 | 09-06 | 日志/栈信息提取、代码定位、证据化分析、5 个可复现案例 |
@@ -66,10 +70,10 @@
 | 07-13 周一 | 完成 FastMCP 迁移、Tool 指令和 README 使用说明 | Git 提交 `d213fd8`、`5a491f7` | ✅ |
 | 07-14 周二 | 补开发依赖，使 README 中的测试命令在全新虚拟环境可执行 | 全新虚拟环境中 `python -m pytest -q` 通过，15 个测试通过 | ✅ |
 | 07-15 周三 | 补 Tool 层和安全边界测试：绝对路径、仓库穿越、目录、异常转换 | 新增 7 个测试；`python -m pytest -q`：22 passed in 0.30s；`ToolError` 保留原始原因 | ✅ |
-| 07-16 周四 | 建立真实 Zoekt 集成测试，验证 repo/path/line 与本地源码一致 | `docs/evidence/2026-07-16-zoekt-integration.json`；测试通过，`get_file_context` 与本地源码片段一致 | ✅ |
+| 07-16 周四 | 建立真实 Zoekt 集成测试，验证 repo/path/line 与本地源码一致 | 本地忽略的集成报告；测试通过，`get_file_context` 与本地源码片段一致 | ✅ |
 | 07-17 周五 | 缓冲与轻量复盘，只修复本周闭环中的问题 | 07-18 补做测试基线；仓库名映射决策和失败记录已写入日报与演示证据 | ✅ 补做 |
 | 07-18 周六 | 用 MCP Inspector 或真实 MCP Client 跑通搜索后读取上下文 | 跨日至 07-19 完成；公开 Click 演示录制及两份 E2E 证据 | ✅ |
-| 07-19 周日 | 更新 README 的验证结果、限制与演示，完成周复盘 | Goal 与周复盘已更新；README 和 v0.1 checklist 待收口 | 🟡 |
+| 07-19 周日 | 更新 README 的验证结果、限制与演示，完成周复盘 | 07-20 完成 README 收口、公开材料复扫与本地归档；MCP 单测 22 passed | ✅ 补做 |
 
 ### M1 的 Done 定义
 
@@ -81,17 +85,17 @@
 - [x] MCP Client 端到端闭环通过
 - [x] 中文/Unicode、Zoekt 行号语义，以及带空格和句点的错误文本字面量查询已验证
 - [x] 有不包含公司敏感代码的公开演示材料
-- [ ] README 链接公开证据，补充 `zoekt.name`、限制与失败案例，完成 v0.1 发布 checklist
+- [x] README 链接公开证据，补充 `zoekt.name`、限制与失败案例，完成 v0.1 发布 checklist
 
 ## 本周复盘：07-13 ～ 07-19
 
-- 当前里程碑：M1 Code Search MCP v0.1，完成度约 95%，处于发布收口阶段。
-- 本周完成证据：22 个单元测试通过；真实 Zoekt 集成闭环通过；[首次 Client 失败证据](docs/evidence/2026-07-19-click-mcp-client-e2e.md)和[修复后重跑证据](docs/evidence/2026-07-19-click-mcp-client-e2e-rerun.md)已保存；[07-18 日报](daily-reports/2026-07-18.md)记录了完整过程。
+- 当前里程碑：M1 Code Search MCP v0.1，完成度 100%（当前工作树），已进入 M2。
+- 本周完成证据：22 个 MCP 单元测试通过；真实 Zoekt 集成闭环通过；[首次 Client 失败证据](docs/evidence/2026-07-19-click-mcp-client-e2e.md)和[修复后重跑证据](docs/evidence/2026-07-19-click-mcp-client-e2e-rerun.md)已保存；README 已提供公开复核入口。
 - 当前指标：公开演示查询耗时 `6 ms`；精确命中 `click/src/click/core.py:848`；修复后的公开样例 `1/1` 完成 `search_code → get_file_context`；上下文返回范围为 836～860 行。
-- 最大问题：Zoekt 会根据 Git `origin` 推导规范仓库名，导致搜索结果中的 `repo` 与 `REPOSITORY_ROOT` 下的本地目录名不一致，跨 Tool 调用因此失败。
-- 做出的设计决策：索引前通过 Git 配置 `zoekt.name` 显式固定仓库名，使 Zoekt 标识与本地目录保持一致；无法获取的 Server commit 如实标记，不推测版本。
+- 最大问题：Zoekt 会根据 Git `origin` 推导规范仓库名，导致搜索结果中的 `repo` 与 `REPOSITORY_ROOT` 下的本地目录名不一致，跨 Tool 调用因此失败；同时发现旧提交历史含敏感材料。
+- 做出的设计决策：索引前通过 Git 配置 `zoekt.name` 显式固定仓库名；内部测试、证据和配置只保留在 Git 忽略目录，公开材料改用通用样例；无法获取的 Server commit 如实标记，不推测版本。
 - 下周唯一交付：建立 15～20 条公开仓库检索评测集，输出 Hit@1、Hit@5、闭环成功率和延迟基线。
-- 需要停止或延后的事项：在评测数据出现明确问题前，不增加新 Tool，不引入 RAG、Memory、LangGraph 或 Multi-Agent。
+- 需要停止或延后的事项：在评测数据出现明确问题前，不增加新 Tool，不引入 RAG、Memory、LangGraph 或 Multi-Agent；未获授权前不改写或强推远端 Git 历史。
 
 ## 下一阶段计划
 

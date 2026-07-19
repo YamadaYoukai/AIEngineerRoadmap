@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -7,7 +8,7 @@ from model import IncidentAnalysis
 import openai
 
 API_KEY_PATH = Path(__file__).resolve().parents[1] / ".secrets" / "openai_api_key"
-LLM_PROXY = "https://llm-proxy.intra.xiaojukeji.com"
+BASE_URL_PATH = Path(__file__).resolve().parents[1] / ".secrets" / "openai_base_url"
 MODEL = "auto-std"
 
 LEARNING_PLAN_SCHEMA: dict[str, Any] = {
@@ -78,11 +79,22 @@ def read_api_key() -> str:
     return api_key
 
 
+def read_base_url() -> str | None:
+    base_url = os.getenv("OPENAI_BASE_URL")
+    if base_url:
+        return base_url
+    if BASE_URL_PATH.is_file():
+        configured_url = BASE_URL_PATH.read_text(encoding="utf-8").strip()
+        return configured_url or None
+    return None
+
+
 def build_client() -> openai.OpenAI:
-    return openai.OpenAI(
-        api_key=read_api_key(),
-        base_url=LLM_PROXY,
-    )
+    client_kwargs = {"api_key": read_api_key()}
+    base_url = read_base_url()
+    if base_url:
+        client_kwargs["base_url"] = base_url
+    return openai.OpenAI(**client_kwargs)
 
 
 def create_learning_plan(topic: str) -> dict[str, Any]:

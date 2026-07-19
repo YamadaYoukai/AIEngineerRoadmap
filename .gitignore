@@ -1,5 +1,6 @@
 .env
 .env.*
 .secrets/
+.idea/workspace.xml
 __pycache__/
 *.py[cod]
